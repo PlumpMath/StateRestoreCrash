@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * The state of this view will not be restored properly on Android 2.x
+ * The state of this view will not be restored properly on API < 13
  * because ParcelableCompat passes a null ClassLoader on these Android versions
  * which results in a failure to find the "SubSavedState" class.
  */
@@ -55,7 +55,7 @@ public class CustomView extends View {
 
 		public SavedState(Parcel source, ClassLoader loader) {
 			super(source);
-			// The following line will crash in Android 2.x because loader is null.
+			// The following line will crash during process restoration in Android API < 13 because loader is null.
 			state = source.readParcelable(loader);
 		}
 
